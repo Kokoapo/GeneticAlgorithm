@@ -51,8 +51,10 @@ public class Main {
         System.out.println("Selected");
         for (int i = 0; i < 5; i++) {
             int index = rand.nextInt(pops1.size());
+
             selected.add(pops1.get(index));
             total += selected.get(i).getFitness();
+            
             System.out.println((i + 1) + " : " + selected.get(i).getX() + " " + selected.get(i).getY() + " " + selected.get(i).getFitness());
         }
 
