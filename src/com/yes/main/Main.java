@@ -44,6 +44,22 @@ public class Main {
     }
 
     private static void selectPops() {
+        ArrayList<Pops> selected = new ArrayList<Pops>();
+        Random rand = new Random();
+        int total = 0;
+
+        System.out.println("Selected");
+        for (int i = 0; i < 5; i++) {
+            int index = rand.nextInt(pops1.size());
+            selected.add(pops1.get(index));
+            total += selected.get(i).getFitness();
+            System.out.println((i + 1) + " : " + selected.get(i).getX() + " " + selected.get(i).getY() + " " + selected.get(i).getFitness());
+        }
+
+        chooseParents(selected, total);
+    }
+
+    private static void chooseParents(ArrayList<Pops> selected, int total) {
 
     }
 
