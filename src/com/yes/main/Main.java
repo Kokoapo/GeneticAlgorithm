@@ -6,13 +6,18 @@ import java.util.Scanner;
 
 public class Main {
 
+    //List with Main Generation
     private static ArrayList<Pops> pops1 = new ArrayList<Pops>();
+    //List to storage Next Generation and pass it to pops1 List later
     private static ArrayList<Pops> pops2 = new ArrayList<Pops>();
 
+    //Fitness function method, returns the fitness for a pop: (x * x) - y
     private static int fitnessFunc(int x, int y) {
         return (x * x) - y;
     }
 
+    //Main method, first it generates the starting 50 pops, each one with X, Y and Fitness
+    //then it keeps selecting pops and creating new generations until the user stops it by typing "end"
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String enter = "";
@@ -24,12 +29,13 @@ public class Main {
             }
 
             transferPops();
-            enter = scanner.next();
+            enter = scanner.nextLine();
         } while (!enter.toLowerCase().equals("end"));
 
         scanner.close();
     }
 
+    //Generate First pops Generation
     private static void genPops() {
         Random rand = new Random();
         
@@ -43,6 +49,8 @@ public class Main {
         }
     }
 
+    //Selects 5 pops from the Main Generation to be choosen as Parents later, making 2 new pops from the selected Parents
+    //repeats the process 25 times to make a whole new 50 pops Generation
     private static void selectPops() {
         ArrayList<Pops> selected = new ArrayList<Pops>();
         Random rand = new Random();
@@ -62,6 +70,8 @@ public class Main {
         selected.clear();
     }
 
+    //Makes percentage values for the 5 pops selected previously based on how high their fitness are
+    //then selects 2 pops from the 5 selected List to be used as the parents during the crossing over
     private static void chooseParents(ArrayList<Pops> selected, int total) {
         float[] percentages = new float[5];
         float[] percentValue = new float[5];
@@ -92,6 +102,7 @@ public class Main {
         parents.clear();
     }
 
+    //Creates 2 new pops from the Parents selected previously and storage them on the Next Generation List
     private static void crossingOver(ArrayList<Pops> parents) {
         pops2.add(new Pops(parents.get(0).getX(), parents.get(1).getY(), 
             fitnessFunc(parents.get(0).getX(), parents.get(1).getY())));
@@ -100,6 +111,7 @@ public class Main {
             fitnessFunc(parents.get(1).getX(), parents.get(0).getY())));
     }
 
+    //Cleans the Main Generation Pops and transfers the Next Generation pops into the Main Generation List
     private static void transferPops() {
         pops1.clear();
 
@@ -111,4 +123,5 @@ public class Main {
 
         pops2.clear();
     }
+    
 }
