@@ -25,7 +25,7 @@ public class Main {
 
             transferPops();
             enter = scanner.next();
-        } while (!enter.toLowerCase().equals("done"));
+        } while (!enter.toLowerCase().equals("end"));
 
         scanner.close();
     }
@@ -59,13 +59,56 @@ public class Main {
         }
 
         chooseParents(selected, total);
+        selected.clear();
     }
 
     private static void chooseParents(ArrayList<Pops> selected, int total) {
+        float[] percentages = new float[5];
+        float[] percentValue = new float[5];
+        ArrayList<Pops> parents = new ArrayList<Pops>();
+        Random rand = new Random();
+        float totalP = 0;
 
+        System.out.println(total);
+        for (int i = 0; i < percentages.length; i++) {
+            percentValue[i] = ((float)selected.get(i).getFitness() / total) * 100;
+            totalP += percentValue[i];
+            percentages[i] = totalP;
+            System.out.println(totalP + "%");
+        }
+
+        for (int i = 0; i < 2; i++) {
+            float parentP = rand.nextFloat(100);
+            System.out.println(parentP);
+            for (int j = 0; j < percentages.length; j++) {
+                if ((parentP > percentages[j] - percentValue[j]) && (parentP < percentages[j])) {
+                    parents.add(selected.get(j));
+                    System.out.println("Parent " + (i + 1) + " : " + parents.get(i).getFitness());
+                }
+            }
+        }
+
+        crossingOver(parents);
+        parents.clear();
+    }
+
+    private static void crossingOver(ArrayList<Pops> parents) {
+        pops2.add(new Pops(parents.get(0).getX(), parents.get(1).getY(), 
+            fitnessFunc(parents.get(0).getX(), parents.get(1).getY())));
+        
+        pops2.add(new Pops(parents.get(1).getX(), parents.get(0).getY(), 
+            fitnessFunc(parents.get(1).getX(), parents.get(0).getY())));
     }
 
     private static void transferPops() {
+        pops1.clear();
 
+        System.out.println("New Generation");
+        for (int i = 0; i < pops2.size(); i++) {
+            pops1.add(pops2.get(i));
+            System.out.println((i + 1) + " : " + pops1.get(i).getX() + " " + pops1.get(i).getY() + " " + pops1.get(i).getFitness());
+        }
+
+        pops2.clear();
     }
 }
