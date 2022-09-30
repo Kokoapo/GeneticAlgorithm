@@ -16,11 +16,23 @@ public class Pops {
         return x;
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
     public int getY() {
         return y;
     }
 
+    public void setY(int y) {
+        this.y = y;
+    }
+
     public int getFitness() {
         return fitness;
+    }
+
+    public void setFitness(int fitness) {
+        this.fitness = fitness;
     }
 }
