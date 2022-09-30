@@ -16,7 +16,7 @@ public class Main {
     }
 
     //Main method, first it generates the starting 50 pops, each one with X, Y and Fitness
-    //then it keeps selecting pops and creating new generations until the user stops it by typing "end"
+    //then it keeps selecting pops and creating new generations until it reaches the 100th Generation
     public static void main(String[] args) {
         int genCount = 1;
 
